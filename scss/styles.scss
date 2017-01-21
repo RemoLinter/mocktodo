@@ -5,10 +5,9 @@
 }
 
 .areasearch {
-
+  display: inline;
   .inputsearch {
-    width: 100%;
-    margin-right: 20px;
+    width: calc(100% - 40px);
     //margin-right: 40px;
   }
   .buttonsearch {

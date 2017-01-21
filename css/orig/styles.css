@@ -405,13 +405,13 @@ template {
 * {
   box-sizing: border-box; }
 
-.areasearch .inputsearch {
-  width: 100%;
-  margin-right: 20px; }
-
-.areasearch .buttonsearch {
-  background-color: transparent;
-  border: 0; }
+.areasearch {
+  display: inline; }
+  .areasearch .inputsearch {
+    width: calc(100% - 40px); }
+  .areasearch .buttonsearch {
+    background-color: transparent;
+    border: 0; }
 
 .areaadd {
   text-align: center;
