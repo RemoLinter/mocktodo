@@ -402,71 +402,53 @@ template {
 [hidden] {
   display: none; }
 
-body {
-  background-color: Aquamarine; }
-
 * {
   box-sizing: border-box; }
 
-.wrapper {
-  background-color: #fff;
-  margin: 0 auto;
-  padding: 25px;
-  width: 960px;
-  overflow: auto; }
+.areasearch .inputsearch {
+  width: 100%;
+  margin-right: 20px; }
 
-input[type="text"], input[type="date"] {
-  height: 40px; }
+.areasearch .buttonsearch {
+  background-color: transparent;
+  border: 0; }
 
-.title {
-  width: 520px; }
+.areaadd {
+  text-align: center;
+  padding: 10px; }
 
-.date, .submitbutton {
-  width: 180px; }
+.areatasklist .tasksymbols {
+  display: -ms-flexbox;
+  display: flex; }
 
-.title, .date, .submitbutton {
-  display: block;
-  float: left; }
+.areatasklist .symbol {
+  width: 100%;
+  text-align: center;
+  margin: 10px; }
 
-.date {
-  margin: 0 15px; }
-
-button {
-  height: 40px; }
-
-.list-items {
-  float: left;
+.areatasklist .tasklist {
   list-style: none;
-  margin: 10px 0;
-  padding: 0px;
-  width: 100%; }
-  .list-items li {
-    color: white;
-    background-color: black;
-    margin: 10px 0;
-    padding: 10px; }
-  .list-items .done {
-    background-color: #404040;
-    text-decoration: line-through; }
+  margin: 0;
+  padding: 0; }
 
-.item-date {
-  float: right; }
+.areatasklist .task {
+  height: 100px;
+  background-color: yellow;
+  margin: 10px;
+  border: 2px solid;
+  border-radius: 10px; }
 
-.remove-button {
-  float: right;
-  height: 20px;
-  margin-left: 10px;
-  border: none;
-  background-color: transparent; }
+.areatasklist p {
+  margin: 10px; }
 
-@media (max-width: 960px) {
-  .wrapper {
-    width: 100%; }
-  .title {
-    width: 100%; }
-  .date,
-  .submitbutton {
-    margin: 20px 0 0;
-    width: calc(50% - 10px); }
-  .date {
-    margin-right: 20px; } }
+.areaedit {
+  margin: 10px; }
+
+.areaactions .actionsymbols {
+  display: -ms-flexbox;
+  display: flex; }
+
+.areaactions .symbol {
+  width: 100%;
+  text-align: center;
+  margin: 10px; }
