@@ -405,6 +405,21 @@ template {
 * {
   box-sizing: border-box; }
 
+html {
+  position: relative;
+  min-height: 100%; }
+
+body {
+  margin: 0 0 52px;
+  /* bottom = footer height */ }
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 52px;
+  width: 100%; }
+
 .areasearch {
   display: inline; }
   .areasearch .inputsearch {
