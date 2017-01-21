@@ -458,6 +458,8 @@ footer {
 
 .areaedit {
   margin: 10px; }
+  .areaedit .inputdetails {
+    width: 100%; }
 
 .areaactions .actionsymbols {
   display: -ms-flexbox;
