@@ -456,6 +456,13 @@ footer {
 .areatasklist p {
   margin: 10px; }
 
+.showtags .tag {
+  display: inline-block;
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  border-radius: 5px; }
+
 .areaedit {
   margin: 10px; }
   .areaedit .inputdetails {
