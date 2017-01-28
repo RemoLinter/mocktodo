@@ -447,7 +447,6 @@ footer {
   padding: 0; }
 
 .areatasklist .task {
-  height: 100px;
   background-color: yellow;
   margin: 10px;
   border: 2px solid;
@@ -455,6 +454,9 @@ footer {
 
 .areatasklist p {
   margin: 10px; }
+
+.areatasklist .taskactions {
+  text-align: center; }
 
 .linktagseditor {
   text-decoration: none; }

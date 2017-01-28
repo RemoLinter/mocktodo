@@ -42,7 +42,7 @@ var buildTaskEntry = function(caption) {
   $divTask.append($divTaskSymbols);
 
   $divTask.append($para);
-  $divTask.append(buildRemoveButton);
+  $divTask.append(buildTaskActions);
   $entryTask.append($divTask);
 
   /*
@@ -68,11 +68,17 @@ var buildSymbol = function(symbolID) {
   return $divSymbol;
 }
 
-var buildRemoveButton = function() {
+var buildTaskActions = function() {
+  var $divTaskActions = $('<div></div>');
+  $divTaskActions.addClass('taskactions');
+
   var $buttonRemove = $('<button>X</button>');
-  $buttonRemove.addClass('ddd');
+  $buttonRemove.addClass('removeButton');
   $buttonRemove.on('click', removeTask);
-  return $buttonRemove;
+
+  $divTaskActions.append($buttonRemove);
+
+  return $divTaskActions;
 }
 
 var removeTask = function() {
