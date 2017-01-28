@@ -73,6 +73,7 @@ var buildTaskActions = function() {
   $divTaskActions.addClass('taskactions');
 
   var $buttonRemove = $('<button>X</button>');
+  $buttonRemove.addClass('hidebutton');
   $buttonRemove.addClass('removeButton');
   $buttonRemove.on('click', removeTask);
 

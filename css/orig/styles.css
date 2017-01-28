@@ -480,3 +480,7 @@ footer {
   width: 100%;
   text-align: center;
   margin: 10px; }
+
+.hidebutton {
+  border: none;
+  background: none; }
