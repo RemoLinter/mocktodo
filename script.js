@@ -1,16 +1,22 @@
 $(function() {
   // Button holen
-  var $button = $('.buttonadd');
+  var $buttonAdd = $('.buttonadd');
+
 
   //Eventlistener hinzufügen
-  $button.on('click', addTask);
+  $buttonAdd.on('click', addTask);
+
+  var $listOpenTasks = $('.tasklist.open');
+
+  $listOpenTasks.on('click', 'li', removeTask);
+
 })
 
 var addTask = function() {
 
   // Eingabefeld holen
   var $inputInhalt = $('.inputsearch');
-  var $listTasks = $('.tasklist');
+  var $listOpenTasks = $('.open');
 
   // Wert auslesen
   var inhaltWert = $inputInhalt.val();
@@ -18,7 +24,7 @@ var addTask = function() {
   // Wenn Wert nicht leer ist
   if (inhaltWert !== '') {
 
-    $listTasks.append(buildTaskEntry(inhaltWert));
+    $listOpenTasks.append(buildTaskEntry(inhaltWert));
 
     $inputInhalt.val('');
   }
@@ -72,16 +78,21 @@ var buildTaskActions = function() {
   var $divTaskActions = $('<div></div>');
   $divTaskActions.addClass('taskactions');
 
+  /*
   var $buttonRemove = $('<button>X</button>');
   $buttonRemove.addClass('hidebutton');
   $buttonRemove.addClass('removeButton');
   $buttonRemove.on('click', removeTask);
 
   $divTaskActions.append($buttonRemove);
+  */
 
   return $divTaskActions;
 }
 
 var removeTask = function() {
-  $(this).parent().parent().remove();
+  var $listClosedTasks = $('.closed');
+
+  $listClosedTasks.prepend(this);
+  //$(this).remove();
 }
