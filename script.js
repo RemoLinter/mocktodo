@@ -1,16 +1,51 @@
+//var $listOpenTasks;
+//var $listClosedTasks;
+
 $(function() {
+  $listOpenTasks = $('.open');
+  $listClosedTasks = $('.closed');
+
   // Button holen
   var $buttonAdd = $('.buttonadd');
+  var $listOpenTasks = $('.open');
+  var $listClosedTasks = $('.closed');
 
+  var taskliste = loadTasks();
 
   //Eventlistener hinzufügen
   $buttonAdd.on('click', addTask);
 
-  var $listOpenTasks = $('.tasklist.open');
-
   $listOpenTasks.on('click', 'li', removeTask);
 
+  fillTasks(taskliste);
 })
+
+var loadTasks = function() {
+  var taskliste = [
+    {'caption': "Toast kaufen", 'erledigt': true},
+    {'caption': "Milch kaufen", 'erledigt': false},
+    {'caption': "Käse kaufen", 'erledigt': true},
+    {'caption': "Bier kaufen", 'erledigt': false},
+    {'caption': "Fleisch kaufen", 'erledigt': true}
+  ];
+
+  return taskliste;
+}
+
+var fillTasks = function(taskliste) {
+  var $listOpenTasks = $('.open');
+  var $listClosedTasks = $('.closed');
+
+  taskliste.forEach(function(task) {
+    var $listItem=buildTaskEntry(task.caption);
+
+    if (task.erledigt) {
+        $listClosedTasks.prepend($listItem);
+    } else {
+        $listOpenTasks.append($listItem);
+    }
+  })
+}
 
 var addTask = function() {
 
@@ -51,13 +86,6 @@ var buildTaskEntry = function(caption) {
   $divTask.append(buildTaskActions);
   $entryTask.append($divTask);
 
-  /*
-  var $divTask = $('<div></div>').class('task')
-
-  $entryTask.append($divTask);
-  */
-  //$entryTask.html(caption);
-
   return $entryTask;
 }
 
@@ -78,15 +106,6 @@ var buildTaskActions = function() {
   var $divTaskActions = $('<div></div>');
   $divTaskActions.addClass('taskactions');
 
-  /*
-  var $buttonRemove = $('<button>X</button>');
-  $buttonRemove.addClass('hidebutton');
-  $buttonRemove.addClass('removeButton');
-  $buttonRemove.on('click', removeTask);
-
-  $divTaskActions.append($buttonRemove);
-  */
-
   return $divTaskActions;
 }
 
@@ -94,5 +113,4 @@ var removeTask = function() {
   var $listClosedTasks = $('.closed');
 
   $listClosedTasks.prepend(this);
-  //$(this).remove();
 }
