@@ -1,5 +1,6 @@
 //var $listOpenTasks;
 //var $listClosedTasks;
+var myToDoApp = {};
 
 $(function() {
   $listOpenTasks = $('.open');
@@ -18,6 +19,9 @@ $(function() {
   $listOpenTasks.on('click', 'li', removeTask);
 
   fillTasks(taskliste);
+
+  myToDoApp.test="Test";
+  myToDoApp.$listOpenTasks = $('.open');
 })
 
 var loadTasks = function() {
