@@ -22,4 +22,5 @@ gulp.task('default', function() {
   });
   
   gulp.watch('scss/*.scss', ['styles']);
+  gulp.watch("*.html").on('change', browserSync.reload);
 });
