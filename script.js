@@ -1,25 +1,47 @@
+function myToDoApp() {
+    {
+        var test = 'Test';
+    }
+    return {
+        init: function () {
+            console.log(test);
+        }
+    }
+}
+
 $(function () {
-    // Button holen
-    var $buttonAdd = $('.buttonadd');
-    var $listOpenTasks = getListOpenTasks();
-    var taskliste = loadTasks();
-
+    //Button holen
+    //var $buttonAdd = $('.buttonadd');
     //Eventlistener hinzufügen
-    $buttonAdd.on('click', addTask);
+    //$buttonAdd.on('click', addTask);
 
-    $listOpenTasks.on('click', 'li', removeTask);
+    //var $listOpenTasks = getListOpenTasks();
+    //$listOpenTasks.on('click', 'li', removeTask);
 
+    //var taskliste = loadTasksStorage();
+    var taskliste = loadTasks();
     fillTasks(taskliste);
+
+    myToDoApp().init();
 });
 
 var loadTasks = function () {
+    //var tasklistJson='[{"caption":"Milch kaufen","erledigt":false,"erstellt":"11.2.2017, 09:30:35"},{"caption":"Bier kaufen","erledigt":false,"erstellt":"11.2.2017, 09:30:40"},{"caption":"Brot kaufen","erledigt":true,"erstellt":"11.2.2017, 09:30:45"},{"caption":"Eier kaufen","erledigt":false,"erstellt":"11.2.2017, 09:30:50"}]';
+    //var tasklist=JSON.parse(tasklistJson);
+
+    var tasklist=[{"caption":"Milch kaufen","erledigt":false,"erstellt":"11.2.2017, 09:30:35"},{"caption":"Bier kaufen","erledigt":false,"erstellt":"11.2.2017, 09:30:40"},{"caption":"Brot kaufen","erledigt":true,"erstellt":"11.2.2017, 09:30:45"},{"caption":"Eier kaufen","erledigt":false,"erstellt":"11.2.2017, 09:30:50"}];
+
+    return tasklist;
+}
+
+var loadTasksStorage = function () {
     var storageData = localStorage.getItem("tasklist");
     var tasklist = JSON.parse(storageData);
 
     return tasklist;
 };
 
-var saveTasks = function (tasklist) {
+var saveTasksStorage = function (tasklist) {
     localStorage.setItem("tasklist", JSON.stringify(tasklist));
 };
 
@@ -44,7 +66,7 @@ var addTask = function () {
     // Eingabefeld holen
     var $inputInhalt = $('.inputsearch');
     var $listOpenTasks = getListOpenTasks();
-    var tasklist = loadTasks();
+    var tasklist = loadTasksStorage();
 
     // Wert auslesen
     var inhaltWert = $inputInhalt.val();
@@ -63,12 +85,12 @@ var addTask = function () {
             }
         );
 
-        saveTasks(tasklist);
+        //saveTasksStorage(tasklist);
 
         $inputInhalt.val('');
     }
 
-    //console.log (JSON.stringify(loadTasks()));
+    //console.log (JSON.stringify(loadTasksStorage()));
 
 };
 
@@ -119,7 +141,9 @@ var buildTaskActions = function () {
 };
 
 var removeTask = function () {
+    //var tasklist = loadTasksStorage();
     var tasklist = loadTasks();
+
     var $listClosedTasks = getListClosedTasks();
 
     var created = ($(this).attr('data-created'));
@@ -128,11 +152,14 @@ var removeTask = function () {
         return task.erstellt == created;
     });
 
-    task[0].erledigt = true;
+    if (task.length == 1) {
+        task[0].erledigt = true;
+    }
 
     $listClosedTasks.prepend(this);
 
-    saveTasks(tasklist);
+
+    //saveTasksStorage(tasklist);
 };
 
 var getListOpenTasks = function () {
@@ -143,4 +170,6 @@ var getListClosedTasks = function () {
     return $('.closed');
 };
 
+$(document).on('click', ".buttonadd", addTask);
+$(document).on('click', ".tasklist.open li", removeTask);
 
