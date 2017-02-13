@@ -1,3 +1,19 @@
-/**
- * Created by Remo Linter on 11.02.2017.
- */
+var eventLoadTasks = function () {
+    loadTasks();
+};
+
+var eventAddTask = function () {
+    addTask();
+};
+
+var eventRemoveTask = function () {
+    removeTask(this);
+};
+
+
+$(function () {
+    eventLoadTasks();
+});
+
+$(document).on('click', ".buttonadd", eventAddTask);
+$(document).on('click', ".tasklist.open li", eventRemoveTask);

@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>ToDo App Example</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js">
-  </script>
-  <script type="text/javascript" src="script.js">
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ToDo App Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="script/lib.js"></script>
+    <script type="text/javascript" src="script/dom.js"></script>
+    <script type="text/javascript" src="script/tasks.js"></script>
+    <script type="text/javascript" src="script/events.js"></script>
+
 </head>
 <body>
-  <div class="areasearch">
-    <input type="search" id="search" class="inputsearch" placeholder="Search..." />
+<div class="areasearch">
+    <input type="search" id="search" class="inputsearch" placeholder="Search..."/>
     <button class="buttonsearch"><i class="fa fa-search"></i></button>
-  </div>
+</div>
 
-  <div class="areaadd">
+<div class="areaadd">
     <div class="baradd">
-      <button class="buttonadd hidebutton" type="button" name="button">
-        <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
-      </button>
+        <button class="buttonadd hidebutton" type="button" name="button">
+            <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+        </button>
     </div>
-  </div>
-  <div class="areatasklist">
+</div>
+<div class="areatasklist">
     <h2>Offene</h2>
     <ul class="tasklist open">
-      <!--
-      <li>
-        <div class="task">
-          <div class="tasksymbols">
-            <div class="symbol">
-              <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+        <!--
+        <li>
+          <div class="task">
+            <div class="tasksymbols">
+              <div class="symbol">
+                <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+              </div>
+              <div class="symbol">
+                <i class="fa fa-tags fa-2x" aria-hidden="true"></i>
+              </div>
             </div>
-            <div class="symbol">
-              <i class="fa fa-tags fa-2x" aria-hidden="true"></i>
-            </div>
+            <p>Aufgabe 1</p>
           </div>
-          <p>Aufgabe 1</p>
-        </div>
-      </li>
-    -->
+        </li>
+      -->
     </ul>
-  </div>
-  <br>
-  <br>
-  <div class="areatasklist">
+</div>
+<br>
+<br>
+<div class="areatasklist">
     <h2>Erledigte</h2>
     <ul class="tasklist closed">
     </ul>
-  </div>
+</div>
 
 
 </body>
