@@ -14,13 +14,11 @@ var loadTasks = function () {
     fillTasks(taskliste);
 };
 
-var addTask = function () {
-    var taskCaption = getNewTaskCaption();
+var addTask = function (taskCaption) {
     var taskID = addTaskEntry(taskCaption);
 
     if (taskID!='') {
         var tasklist = loadTasksStorage();
-        //var taskID =  generateUUID();
         tasklist = tasklist || [];
         tasklist.push(
             {
@@ -32,14 +30,14 @@ var addTask = function () {
 
         saveTasksStorage(tasklist);
 
-        getInputTaskCaption().val('');
+        clearInputTaskCaption();
     }
 };
 
-var removeTask = function (element) {
+var removeTask = function (taskID) {
+    moveTask(taskID, getListClosedTasks(), true);
+
     var tasklist = loadTasksStorage();
-    var $listClosedTasks = getListClosedTasks();
-    var taskID = ($(element).attr('data-taskid'));
 
     var task = tasklist.filter(function (task) {
         return task.id === taskID;
@@ -48,9 +46,6 @@ var removeTask = function (element) {
     if (task.length == 1) {
         task[0].status = "closed";
     }
-
-    $listClosedTasks.prepend(element);
-
 
     saveTasksStorage(tasklist);
 };

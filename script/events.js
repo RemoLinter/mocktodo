@@ -3,11 +3,13 @@ var eventLoadTasks = function () {
 };
 
 var eventAddTask = function () {
-    addTask();
+    var taskCaption = getNewTaskCaption();
+    addTask(taskCaption);
 };
 
 var eventRemoveTask = function () {
-    removeTask(this);
+    var taskID = getTaskIDFromElement(this);
+    removeTask(taskID);
 };
 
 

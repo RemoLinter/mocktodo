@@ -10,9 +10,18 @@ var getInputTaskCaption = function () {
     return $('.inputsearch');
 };
 
+var clearInputTaskCaption = function() {
+    getInputTaskCaption().val('');
+}
+
 var getNewTaskCaption = function () {
     // Wert auslesen
     return getInputTaskCaption().val();
+};
+
+var getTaskIDFromElement = function (element) {
+    var taskID = ($(element).attr('data-taskid'));
+    return taskID;
 };
 
 var buildTaskEntry = function (caption, id) {
@@ -61,7 +70,15 @@ var buildTaskActions = function () {
     return $divTaskActions;
 };
 
+var moveTask = function (taskID, $listTasks, prepend) {
+    var element=$("[data-taskid='" + taskID + "'");
+    if (prepend) {
+        $listTasks.prepend(element);
+    } else {
+        $listTasks.append(element);
+    }
 
+};
 
 var fillTasks = function (taskliste) {
     var $listOpenTasks = getListOpenTasks();
@@ -93,21 +110,4 @@ var addTaskEntry = function(taskCaption) {
 
         return taskID;
     }
-};
-
-
-var taskDOMAdd = function(task) {
-
-};
-
-var taskDOMRemove = function(taskID) {
-
-};
-
-var taskDOMMove = function (taskID, destination) {
-
-};
-
-var taskDOMUpdate = function (task) {
-
 };
