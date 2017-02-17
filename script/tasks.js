@@ -17,7 +17,7 @@ var loadTasks = function () {
 var addTask = function (taskCaption) {
     var taskID = addTaskEntry(taskCaption);
 
-    if (taskID!='') {
+    if (taskID!==undefined) {
         var tasklist = loadTasksStorage();
         tasklist = tasklist || [];
         tasklist.push(

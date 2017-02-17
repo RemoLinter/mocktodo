@@ -1,7 +1,3 @@
-var eventLoadTasks = function () {
-    loadTasks();
-};
-
 var eventAddTask = function () {
     var taskCaption = getNewTaskCaption();
     addTask(taskCaption);
@@ -14,7 +10,7 @@ var eventRemoveTask = function () {
 
 
 $(function () {
-    eventLoadTasks();
+    loadTasks();
 });
 
 $(document).on('click', ".buttonadd", eventAddTask);

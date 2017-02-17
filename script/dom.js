@@ -12,7 +12,7 @@ var getInputTaskCaption = function () {
 
 var clearInputTaskCaption = function() {
     getInputTaskCaption().val('');
-}
+};
 
 var getNewTaskCaption = function () {
     // Wert auslesen
@@ -20,8 +20,7 @@ var getNewTaskCaption = function () {
 };
 
 var getTaskIDFromElement = function (element) {
-    var taskID = ($(element).attr('data-taskid'));
-    return taskID;
+    return ($(element).attr('data-taskid'));
 };
 
 var buildTaskEntry = function (caption, id) {
@@ -84,7 +83,7 @@ var fillTasks = function (taskliste) {
     var $listOpenTasks = getListOpenTasks();
     var $listClosedTasks = getListClosedTasks();
 
-    if (taskliste != null) {
+    if (taskliste !== null) {
         taskliste.forEach(function (task) {
             var $listItem = buildTaskEntry(task.caption, task.id);
 
