@@ -1,16 +1,26 @@
 var eventAddTask = function () {
-    var taskCaption = getNewTaskCaption();
-    addTask(taskCaption);
+    var $inputNewTaskCaption = $('.inputsearch');
+    var taskCaption = $inputNewTaskCaption.val();
+
+    // Wenn Wert nicht leer ist
+    if (taskCaption !== '') {
+        addTask(taskCaption);
+        $inputNewTaskCaption.val('');
+    }
 };
 
 var eventRemoveTask = function () {
-    var taskID = getTaskIDFromElement(this);
+    var taskID = ($(this).attr('data-taskid'));
     removeTask(taskID);
 };
 
 
 $(function () {
-    loadTasks();
+    $listOpenTasks = $('.open');
+    $listClosedTasks = $('.closed');
+    tasklist = loadTasksStorage();
+
+    fillTasks();
 });
 
 $(document).on('click', ".buttonadd", eventAddTask);

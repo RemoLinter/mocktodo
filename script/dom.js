@@ -1,28 +1,3 @@
-var getListOpenTasks = function () {
-    return $('.open');
-};
-
-var getListClosedTasks = function () {
-    return $('.closed');
-};
-
-var getInputTaskCaption = function () {
-    return $('.inputsearch');
-};
-
-var clearInputTaskCaption = function() {
-    getInputTaskCaption().val('');
-};
-
-var getNewTaskCaption = function () {
-    // Wert auslesen
-    return getInputTaskCaption().val();
-};
-
-var getTaskIDFromElement = function (element) {
-    return ($(element).attr('data-taskid'));
-};
-
 var buildTaskEntry = function (caption, id) {
     var $entryTask = $('<li></li>');
     $entryTask.attr('data-taskid', id);
@@ -69,44 +44,30 @@ var buildTaskActions = function () {
     return $divTaskActions;
 };
 
-var moveTask = function (taskID, $listTasks, prepend) {
-    var element=$("[data-taskid='" + taskID + "'");
-    if (prepend) {
-        $listTasks.prepend(element);
-    } else {
-        $listTasks.append(element);
-    }
-
+var prependTaskToList = function (taskID, $listTasks) {
+    var element = $("[data-taskid='" + taskID + "'");
+    $listTasks.prepend(element);
 };
 
-var fillTasks = function (taskliste) {
-    var $listOpenTasks = getListOpenTasks();
-    var $listClosedTasks = getListClosedTasks();
+var fillTasks = function () {
+    tasklist.forEach(function (task) {
+        var $listItem = buildTaskEntry(task.caption, task.id);
 
-    if (taskliste !== null) {
-        taskliste.forEach(function (task) {
-            var $listItem = buildTaskEntry(task.caption, task.id);
-
-            switch (task.status) {
-                case "open":
-                    $listOpenTasks.append($listItem);
-                    break;
-                case "closed":
-                    $listClosedTasks.prepend($listItem);
-                    break;
-            }
-        })
-    }
+        switch (task.status) {
+            case "open":
+                $listOpenTasks.append($listItem);
+                break;
+            case "closed":
+                $listClosedTasks.prepend($listItem);
+                break;
+        }
+    })
 };
 
-var addTaskEntry = function(taskCaption) {
-    var $listOpenTasks = getListOpenTasks();
-
+var addTaskEntry = function(taskID, taskCaption) {
     // Wenn Wert nicht leer ist
-    if (taskCaption !== '') {
-        var taskID =  generateUUID();
-        $listOpenTasks.append(buildTaskEntry(taskCaption, taskID));
+    if (taskID !== '') {
 
-        return taskID;
+        $listOpenTasks.append(buildTaskEntry(taskCaption, taskID));
     }
 };

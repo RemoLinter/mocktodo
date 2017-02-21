@@ -1,44 +1,32 @@
 var loadTasksStorage = function () {
     var storageData = localStorage.getItem("tasklist");
     var tasklist = JSON.parse(storageData);
+    tasklist = tasklist || [];
 
     return tasklist;
 };
 
-var saveTasksStorage = function (taskliste) {
-    localStorage.setItem("tasklist", JSON.stringify(taskliste));
-};
-
-var loadTasks = function () {
-    var taskliste = loadTasksStorage();
-    fillTasks(taskliste);
+var saveTasksStorage = function () {
+    localStorage.setItem("tasklist", JSON.stringify(tasklist));
 };
 
 var addTask = function (taskCaption) {
-    var taskID = addTaskEntry(taskCaption);
+    var taskID =  generateUUID();
 
-    if (taskID!==undefined) {
-        var tasklist = loadTasksStorage();
-        tasklist = tasklist || [];
-        tasklist.push(
-            {
-                'caption': taskCaption,
-                'status': "open",
-                'id': taskID
-            }
-        );
+    tasklist.push(
+        {
+            'caption': taskCaption,
+            'status': "open",
+            'id': taskID
+        }
+    );
 
-        saveTasksStorage(tasklist);
+    addTaskEntry(taskID, taskCaption);
 
-        clearInputTaskCaption();
-    }
+    saveTasksStorage();
 };
 
 var removeTask = function (taskID) {
-    moveTask(taskID, getListClosedTasks(), true);
-
-    var tasklist = loadTasksStorage();
-
     var task = tasklist.filter(function (task) {
         return task.id === taskID;
     });
@@ -47,5 +35,7 @@ var removeTask = function (taskID) {
         task[0].status = "closed";
     }
 
-    saveTasksStorage(tasklist);
+    prependTaskToList(taskID, $listClosedTasks);
+
+    saveTasksStorage();
 };
