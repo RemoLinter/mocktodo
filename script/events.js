@@ -18,9 +18,8 @@ var eventRemoveTask = function () {
 $(function () {
     $listOpenTasks = $('.open');
     $listClosedTasks = $('.closed');
-    tasklist = loadTasksStorage();
 
-    fillTasks();
+    loadTasksStorage();
 });
 
 $(document).on('click', ".buttonadd", eventAddTask);
