@@ -1,7 +1,25 @@
 var loadTasksStorage = function () {
+    /*
     var storageData = localStorage.getItem("tasklist");
     var tasklist = JSON.parse(storageData);
     tasklist = tasklist || [];
+
+    return tasklist;
+    */
+
+    var tasklist;
+
+    $.ajax({
+        url: "/api/tasklist.json",
+        async: false,
+        dataType: "json",
+        success: function (data) {
+            tasklist = data;
+        },
+        error: function (e) {
+            tasklist = [];
+        }
+    });
 
     return tasklist;
 };
