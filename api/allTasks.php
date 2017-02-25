@@ -1,6 +1,7 @@
 <?php
 
-$tasks = [
+session_start();
+$_SESSION["tasks"] = [
     [
         'caption' => 'Bier',
         'status' => 'open',
@@ -26,4 +27,4 @@ $tasks = [
 header('Content-Type: text/html; charset=utf-8');
 header('Content-Type: application/json');
 
-echo json_encode($tasks, JSON_UNESCAPED_UNICODE);
+echo json_encode($_SESSION["tasks"], JSON_UNESCAPED_UNICODE);

@@ -1,6 +1,6 @@
 var loadTasksStorage = function () {
     var $tasksLoader = $.ajax({
-        url: "/api/alleTasks.php",
+        url: "/api/allTasks.php",
         dataType: "json"
     });
 
