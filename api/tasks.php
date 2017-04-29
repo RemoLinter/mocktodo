@@ -2,80 +2,105 @@
 // Bibliothek laden für Funktion die UUID generiert
 require_once('lib.php');
 
+// Variable für Antwort deklarieren
+$result='';
+
 // Datendatei festlegen
 $filename = '../_geheim/tasklist.json';
 
-// URL Parameter Aktion lesen
-$action = $_SERVER['REQUEST_METHOD'];
-
-// Lade die Liste der Tasks aus Datei
-$tasklistJSON = file_get_contents($filename);
+// Lade die Taskliste aus Datei
+$tasklist = json_decode(file_get_contents($filename), true);
 
 // Aktion entsprechend handeln
-switch ($action) {
+switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         // Taskliste als Antwort festlegen
-        $result = $tasklistJSON;
+        $result = json_encode($tasklist);
         break;
     case 'POST':
-        // Titel für neuen Task aus URL Parameter lesen
-        $title = $_REQUEST['title'];
-        // ID für neuen Task generieren
-        $id = create_guid();
+        // Wenn Caption als Parameter vorhanden
+        if (array_key_exists('caption',$_REQUEST)) {
+            // Titel für neuen Task aus URL Parameter lesen
+            $caption = $_REQUEST['caption'];
+            // ID für neuen Task generieren
+            $id = create_guid();
 
-        // JSON in Taskliste umwandeln
-        $tasklist = json_decode($tasklistJSON, true);
+            // Task erstellen
+            $task = [
+                'caption' => $caption,
+                'status' => 'open',
+                'id' => $id
+            ];
 
-        // Task erstellen
-        $task = [
-            'caption' => $title,
-            'status' => 'open',
-            'id' => $id
-        ];
+            // Task zu Array hinzufügen
+            $tasklist[] = $task;
+        }
 
-        // Task zu Array hinzufügen
-        array_push($tasklist, $task);
-
-        // Taskliste in JSON umwandeln
-        $tasklistJSON = json_encode($tasklist);
         // Taskliste zurückschreiben
-        file_put_contents($filename, $tasklistJSON);
+        file_put_contents($filename, json_encode($tasklist));
         // Antwort festlegen
-        $result = $tasklistJSON;
+        $result = json_encode($tasklist);
         break;
     case 'DELETE':
-        // ID des zu löschenden Task aus URL Parameter lesen
-        $id = $_REQUEST['id'];
+        // Wenn ID als Parameter vorhanden
+        if (array_key_exists('id',$_REQUEST)) {
+            // ID des zu löschenden Task aus URL Parameter lesen
+            $id = $_REQUEST['id'];
 
-        // JSON in Taskliste umwandeln
-        $tasklist = json_decode($tasklistJSON, true);
+            // Neues Array für gefilterte Tasks
+            $newtasklist = [];
 
-        // Task entfernen
-        $key = array_search($id, $tasklist);
-        //unset($tasklist[$key]);
+            // Tasks durchlaufen
+            foreach ($tasklist as $task) {
+                // Wenn Task id nicht die zu entfernende ist
+                if ($task['id'] != $id) {
+                    // Task zu neuer Taskliste hinzufügen
+                    $newtasklist[] = $task;
+                }
+            }
 
-        // Task zu Array hinzufügen
-        array_push($tasklist, $task);
-
-        // Taskliste in JSON umwandeln
-        $tasklistJSON = json_encode($tasklist);
+            // Neue Taskliste in JSON umwandeln
+            $tasklistJSON = json_encode($newtasklist);
+        } else {
+            // Taskliste in JSON umwandeln
+            $tasklistJSON = json_encode($tasklist);
+        }
 
         // Taskliste zurückschreiben
         file_put_contents($filename, $tasklistJSON);
         // Antwort festlegen
         $result = $tasklistJSON;
-
-        $result = $key;
         break;
     case 'PATCH':
         // ID des zu ändernden Task aus URL Parameter lesen
         $id = $_REQUEST['id'];
+
         // neuen Titel für Task aus URL Parameter lesen
-        $title = $_REQUEST['title'];
+        $caption = $_REQUEST['caption'];
         // neuen Status für Task aus URL Parameter lesen
         $status = $_REQUEST['status'];
+
+        // Tasks durchlaufen
+        foreach ($tasklist as &$task) {
+            // Wenn Task id die gesuchte ist
+            if ($task['id'] == $id) {
+                // Wenn Caption angegeben
+                if (array_key_exists('caption',$_REQUEST)) {
+                    // Caption neu setzen
+                    $task['caption'] = $caption;
+                }
+                // Wenn Status angegeben
+                if (array_key_exists('status',$_REQUEST)) {
+                    // Status neu setzen
+                    $task['status'] = $caption;
+                }
+            }
+        }
+
+        // Taskliste zurückschreiben
+        file_put_contents($filename, json_encode($tasklist));
         // Antwort festlegen
-        $result = "patch";
+        $result = json_encode($tasklist);
         break;
 }
 
