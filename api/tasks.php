@@ -92,7 +92,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 // Wenn Status angegeben
                 if (array_key_exists('status',$_REQUEST)) {
                     // Status neu setzen
-                    $task['status'] = $caption;
+                    $task['status'] = $status;
                 }
             }
         }
