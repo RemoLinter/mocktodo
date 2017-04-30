@@ -1,8 +1,8 @@
 var loadTasksStorage = function () {
     var $tasksLoader = $.ajax({
-        //url: "/api/tasklist.json",
-        url: "/api/tasks.php?action=get",
-        dataType: "json"
+        url: "/api/tasks.php",
+        dataType: "json",
+        method: "GET"
     });
 
     $tasksLoader.done(function(data) {
@@ -16,31 +16,30 @@ var saveTasksStorage = function () {
 };
 
 var addTask = function (taskCaption) {
-    var taskID =  generateUUID();
+    var $tasksLoader = $.ajax({
+        url: "/api/tasks.php" + "?caption=" + taskCaption,
+        dataType: "json",
+        method: "POST"
+    });
 
-    tasklist.push(
-        {
-            'caption': taskCaption,
-            'status': "open",
-            'id': taskID
-        }
-    );
-
-    addTaskEntry(taskID, taskCaption);
-
-    saveTasksStorage();
+    $tasksLoader.done(function(data) {
+        tasklist = data;
+        addTaskEntry(data.id, taskCaption);
+    });
 };
 
 var removeTask = function (taskID) {
-    var task = tasklist.filter(function (task) {
-        return task.id === taskID;
+    var $tasksLoader = $.ajax({
+        url: "/api/tasks.php" + "?id=" + taskID + "&status=closed",
+        dataType: "json",
+        method: "PATCH",
+        error: function(msg) {
+            console.log(msg);
+        }
     });
 
-    if (task.length == 1) {
-        task[0].status = "closed";
-    }
-
-    prependTaskToList(taskID, $listClosedTasks);
-
-    saveTasksStorage();
+    $tasksLoader.done(function(data) {
+        console.log(taskID);
+        prependTaskToList(taskID, $listClosedTasks);
+    });
 };

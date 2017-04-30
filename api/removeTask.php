@@ -1,8 +1,40 @@
 <?php
 
-session_start();
+function execute($filename) {
+    // Taskliste laden
+    $tasklist = load_tasks($filename);
+    // Wenn ID als Parameter vorhanden
+    if (array_key_exists('id',$_REQUEST)) {
+        // ID des zu löschenden Task aus URL Parameter lesen
+        $id = $_REQUEST['id'];
 
-header('Content-Type: text/html; charset=utf-8');
-header('Content-Type: application/json');
+        // Neues Array für gefilterte Tasks
+        $newtasklist = [];
 
-echo json_encode($_SESSION["tasks"], JSON_UNESCAPED_UNICODE);
+        // Tasks durchlaufen
+        foreach ($tasklist as $task) {
+            // Wenn Task id nicht die zu entfernende ist
+            if ($task['id'] != $id) {
+                // Task zu neuer Taskliste hinzufügen
+                $newtasklist[] = $task;
+            }
+        }
+
+        // Taskliste zurückschreiben
+        save_tasks($filename, $newtasklist);
+
+        $message = [
+            'status' => 'done',
+            'count' => count($newtasklist)
+        ];
+    } else {
+        // Antwortmeldung festlegen
+        $message = [
+            'status' => 'error',
+            'reason' => 'ID fehlt'
+        ];
+    }
+
+    // Antwort festlegen
+    return $message;
+}

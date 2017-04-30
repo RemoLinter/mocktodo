@@ -1,15 +1,42 @@
 <?php
 
-session_start();
-$_SESSION["tasks"][] =
-    [
-        'caption' => $_REQUEST['caption'],
-        'status' => 'closed',
-        'id' => 'd1ac6644-b331-478e-ba51-1280a336f8d5',
-        'index' => count($_SESSION["tasks"])
-    ];
+function execute ($filename) {
+    $id = 0;
+    // Taskliste laden
+    $tasklist = load_tasks($filename);
+    // Wenn Caption als Parameter vorhanden
+    if (array_key_exists('caption',$_REQUEST)) {
+        // Titel für neuen Task aus URL Parameter lesen
+        $caption = $_REQUEST['caption'];
+        // ID für neuen Task holen
+        $id = generate_auto_nr();
 
-header('Content-Type: text/html; charset=utf-8');
-header('Content-Type: application/json');
+        // Task erstellen
+        $task = [
+            'caption' => $caption,
+            'status' => 'open',
+            'id' => $id
+        ];
 
-echo json_encode($_SESSION["tasks"], JSON_UNESCAPED_UNICODE);
+        // Task zu Array hinzufügen
+        $tasklist[] = $task;
+
+        // Antwortmeldung festlegen
+        $message = [
+            'status' => 'done',
+            'id' => $id,
+            'count' => count($tasklist)
+        ];
+
+        // Taskliste zurückschreiben
+        save_tasks($filename, $tasklist);
+    } else {
+        // Antwortmeldung festlegen
+        $message = [
+            'status' => 'error',
+            'reason' => 'Caption fehlt'
+        ];
+    }
+
+    return $message;
+}
