@@ -4,10 +4,12 @@ function execute($filename) {
     // Taskliste laden
     $tasklist = load_tasks($filename);
 
+    // Wenn ID als Parameter vorhanden
     if (array_key_exists('id', $_REQUEST)) {
         // ID des zu ändernden Task aus URL Parameter lesen
         $id = $_REQUEST['id'];
 
+        // Wenn Caption oder Status als Parameter vorhanden
         if (array_key_exists('caption', $_REQUEST) ||
             array_key_exists('status', $_REQUEST)) {
 

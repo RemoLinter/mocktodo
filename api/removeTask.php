@@ -23,6 +23,7 @@ function execute($filename) {
         // Taskliste zurückschreiben
         save_tasks($filename, $newtasklist);
 
+        // Antwortmeldung festlegen
         $message = [
             'status' => 'done',
             'count' => count($newtasklist)

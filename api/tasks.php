@@ -28,7 +28,7 @@ function save_tasks($filename, $tasks) {
 // Lade die Taskliste aus Datei
 $tasklist = load_tasks($filename);
 
-// Aktion entsprechend handeln
+// Je nach Request Methode entsprechend handeln
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         include 'allTasks.php';
