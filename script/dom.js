@@ -49,7 +49,7 @@ var prependTaskToList = function (taskID, $listTasks) {
     $listTasks.prepend($element);
 };
 
-var removeTask = function (taskID) {
+var removeTaskFromList = function (taskID) {
     var $element = $("[data-taskid='" + taskID + "'");
     $element.remove();
 };
