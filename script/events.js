@@ -14,6 +14,11 @@ var eventRemoveTask = function () {
     removeTask(taskID);
 };
 
+var eventDeleteTask = function () {
+    var taskID = ($(this).attr('data-taskid'));
+    deleteTask(taskID);
+};
+
 
 $(function () {
     $listOpenTasks = $('.open');
@@ -24,3 +29,4 @@ $(function () {
 
 $(document).on('click', ".buttonadd", eventAddTask);
 $(document).on('click', ".tasklist.open li", eventRemoveTask);
+$(document).on('click', ".tasklist.closed li", eventDeleteTask);

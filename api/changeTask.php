@@ -46,6 +46,9 @@ function execute($filename) {
                 'status' => 'error',
                 'reason' => 'Weder Caption noch Status festgelegt'
             ];
+
+            // HTTP Code Bad Request
+            http_response_code(400);
         }
     } else {
         // Antwortmeldung festlegen
@@ -53,6 +56,9 @@ function execute($filename) {
             'status' => 'error',
             'reason' => 'ID fehlt'
         ];
+
+        // HTTP Code Bad Request
+        http_response_code(400);
     }
 
     // Antwort festlegen

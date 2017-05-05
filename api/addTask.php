@@ -1,7 +1,6 @@
 <?php
 
 function execute ($filename) {
-    $id = 0;
     // Taskliste laden
     $tasklist = load_tasks($filename);
     // Wenn Caption als Parameter vorhanden
@@ -36,6 +35,9 @@ function execute ($filename) {
             'status' => 'error',
             'reason' => 'Caption fehlt'
         ];
+
+        // HTTP Code Bad Request
+        http_response_code(400);
     }
 
     return $message;

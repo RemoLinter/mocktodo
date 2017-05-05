@@ -45,8 +45,13 @@ var buildTaskActions = function () {
 };
 
 var prependTaskToList = function (taskID, $listTasks) {
-    var element = $("[data-taskid='" + taskID + "'");
-    $listTasks.prepend(element);
+    var $element = $("[data-taskid='" + taskID + "'");
+    $listTasks.prepend($element);
+};
+
+var removeTask = function (taskID) {
+    var $element = $("[data-taskid='" + taskID + "'");
+    $element.remove();
 };
 
 var fillTasks = function () {

@@ -1,10 +1,11 @@
 <?php
 
 function execute($filename) {
-    // Taskliste laden
-    $tasklist = load_tasks($filename);
     // Wenn ID als Parameter vorhanden
     if (array_key_exists('id',$_REQUEST)) {
+        // Taskliste laden
+        $tasklist = load_tasks($filename);
+
         // ID des zu löschenden Task aus URL Parameter lesen
         $id = $_REQUEST['id'];
 
@@ -34,6 +35,9 @@ function execute($filename) {
             'status' => 'error',
             'reason' => 'ID fehlt'
         ];
+
+        // HTTP Code Bad Request
+        http_response_code(400);
     }
 
     // Antwort festlegen

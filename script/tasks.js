@@ -11,10 +11,6 @@ var loadTasksStorage = function () {
     });
 };
 
-var saveTasksStorage = function () {
-    localStorage.setItem("tasklist", JSON.stringify(tasklist));
-};
-
 var addTask = function (taskCaption) {
     var $tasksLoader = $.ajax({
         url: "/api/tasks.php" + "?caption=" + taskCaption,
@@ -32,14 +28,24 @@ var removeTask = function (taskID) {
     var $tasksLoader = $.ajax({
         url: "/api/tasks.php" + "?id=" + taskID + "&status=closed",
         dataType: "json",
-        method: "PATCH",
-        error: function(msg) {
-            console.log(msg);
-        }
+        method: "PATCH"
     });
 
-    $tasksLoader.done(function(data) {
+    $tasksLoader.done(function() {
         console.log(taskID);
         prependTaskToList(taskID, $listClosedTasks);
+    });
+};
+
+var deleteTask = function (taskID) {
+    var $tasksLoader = $.ajax({
+        url: "/api/tasks.php" + "?id=" + taskID,
+        dataType: "json",
+        method: "DELETE"
+    });
+
+    $tasksLoader.done(function() {
+        console.log(taskID);
+        removeTaskFromList(taskID, $listClosedTasks);
     });
 };
