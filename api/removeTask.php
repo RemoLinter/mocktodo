@@ -12,6 +12,7 @@ function execute($filename) {
         foreach ($tasklist as $index => $task) {
             if($task['id'] == $id) {
                 unset($tasklist[$index]);
+                break;
             }
         }
 
