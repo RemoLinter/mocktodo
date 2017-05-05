@@ -9,26 +9,21 @@ function execute($filename) {
         // ID des zu löschenden Task aus URL Parameter lesen
         $id = $_REQUEST['id'];
 
-        // Neues Array für gefilterte Tasks
-        $newtasklist = [];
-
-        // Tasks durchlaufen
-        foreach ($tasklist as $task) {
-            // Wenn Task id nicht die zu entfernende ist
-            if ($task['id'] != $id) {
-                // Task zu neuer Taskliste hinzufügen
-                $newtasklist[] = $task;
+        foreach ($tasklist as $index => $task) {
+            if($task['id'] == $id) {
+                unset($tasklist[$index]);
             }
         }
 
         // Taskliste zurückschreiben
-        save_tasks($filename, $newtasklist);
+        save_tasks($filename, $tasklist);
 
         // Antwortmeldung festlegen
         $message = [
             'status' => 'done',
-            'count' => count($newtasklist)
+            'count' => count($tasklist)
         ];
+
     } else {
         // Antwortmeldung festlegen
         $message = [

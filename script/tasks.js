@@ -24,7 +24,7 @@ var addTask = function (taskCaption) {
     });
 };
 
-var removeTask = function (taskID) {
+var closeTask = function (taskID) {
     var $tasksLoader = $.ajax({
         url: "/api/tasks.php" + "?id=" + taskID + "&status=closed",
         dataType: "json",
