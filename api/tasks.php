@@ -21,8 +21,14 @@ function load_tasks($filename) {
 }
 
 function save_tasks($filename, $tasks) {
+    $result = false;
     // Taskliste zurückschreiben
-    file_put_contents($filename, json_encode($tasks));
+    $result = file_put_contents($filename, json_encode($tasks));
+    if ($result) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // Lade die Taskliste aus Datei

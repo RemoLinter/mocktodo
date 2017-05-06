@@ -1,50 +1,71 @@
 <?php
 
 function execute($filename) {
-    // Taskliste laden
-    $tasklist = load_tasks($filename);
-
     // Wenn ID als Parameter vorhanden
-    if (array_key_exists('id', $_REQUEST)) {
+    if (isset($_REQUEST['id'])) {
         // ID des zu ändernden Task aus URL Parameter lesen
         $id = $_REQUEST['id'];
 
         // Wenn Caption oder Status als Parameter vorhanden
-        if (array_key_exists('caption', $_REQUEST) ||
-            array_key_exists('status', $_REQUEST)) {
+        if (isset($_REQUEST['caption']) ||
+            isset($_REQUEST['status'])) {
+
+            // Taskliste laden
+            $tasklist = load_tasks($filename);
 
             // Tasks durchlaufen
             foreach ($tasklist as &$task) {
                 // Wenn Task id die gesuchte ist
                 if ($task['id'] == $id) {
-                    // Wenn Caption angegeben
-                    if (array_key_exists('caption',$_REQUEST)) {
-                        // neuen Titel für Task aus URL Parameter lesen
-                        $caption = $_REQUEST['caption'];
-                        // Caption neu setzen
-                        $task['caption'] = $caption;
-                    }
-                    // Wenn Status angegeben
-                    if (array_key_exists('status',$_REQUEST)) {
-                        // neuen Status für Task aus URL Parameter lesen
-                        $status = $_REQUEST['status'];
-                        // Status neu setzen
-                        $task['status'] = $status;
-                    }
+                    // diesen mal auf die Seite legen
+                    $foundTask = &$task;
+                    break;
                 }
             }
-            // Taskliste zurückschreiben
-            save_tasks($filename, $tasklist);
 
-            // Antwortmeldung festlegen
-            $message = [
-                'status' => 'done',
-            ];
+            if (isset($foundTask)) {
+                // Wenn Caption angegeben
+                if (!isset($_REQUEST['caption'])) {
+                    // Caption neu setzen
+                    $foundTask['caption'] = $_REQUEST['caption'];
+                }
+                // Wenn Status angegeben
+                if (!isset($_REQUEST['status'])) {
+                    // Status neu setzen
+                    $foundTask['status'] = $_REQUEST['status'];
+                }
+
+                // Taskliste zurückschreiben
+                if (save_tasks($filename, $tasklist)) {
+                    // Antwortmeldung festlegen
+                    $message = [
+                        'msg' => 'Erledigt',
+                        'id' => $foundTask['id'],
+                        'caption' => $foundTask['caption'],
+                        'status' => $foundTask['status']
+                    ];
+                } else {
+                    // Antwortmeldung festlegen
+                    $message = [
+                        'msg' => 'Speichern fehlgeschlagen'
+                    ];
+
+                    // HTTP Code Bad Request
+                    http_response_code(500);
+                };
+            } else {
+                // Antwortmeldung festlegen
+                $message = [
+                    'msg' => 'Task mit dieser ID nicht gefunden'
+                ];
+
+                // HTTP Code Bad Request
+                http_response_code(404);
+            }
         } else {
             // Antwortmeldung festlegen
             $message = [
-                'status' => 'error',
-                'reason' => 'Weder Caption noch Status festgelegt'
+                'msg' => 'Weder Caption noch Status festgelegt'
             ];
 
             // HTTP Code Bad Request
@@ -53,8 +74,7 @@ function execute($filename) {
     } else {
         // Antwortmeldung festlegen
         $message = [
-            'status' => 'error',
-            'reason' => 'ID fehlt'
+            'msg' => 'ID fehlt'
         ];
 
         // HTTP Code Bad Request
