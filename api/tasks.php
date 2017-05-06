@@ -21,7 +21,6 @@ function load_tasks($filename) {
 }
 
 function save_tasks($filename, $tasks) {
-    $result = false;
     // Taskliste zurückschreiben
     $result = file_put_contents($filename, json_encode($tasks));
     if ($result) {

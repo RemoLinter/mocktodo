@@ -25,14 +25,28 @@ function execute($filename) {
 
             if (isset($foundTask)) {
                 // Wenn Caption angegeben
-                if (!isset($_REQUEST['caption'])) {
+                if (isset($_REQUEST['caption'])) {
                     // Caption neu setzen
-                    $foundTask['caption'] = $_REQUEST['caption'];
+                    $foundTask['caption'] = strip_tags($_REQUEST['caption']);
                 }
                 // Wenn Status angegeben
-                if (!isset($_REQUEST['status'])) {
+                if (isset($_REQUEST['status'])) {
+                    switch ($_REQUEST['status']) {
+                        case "open":
+                        case "closed":
+                            $foundTask['status'] = $_REQUEST['status'];
+                            break;
+                    }
+
+                    /*
                     // Status neu setzen
-                    $foundTask['status'] = $_REQUEST['status'];
+                    if ($_REQUEST['status'] == 'open') {
+                        $foundTask['status'] = 'open';
+                    }
+                    if ($_REQUEST['status'] == 'closed'){
+                        $foundTask['status'] = 'closed';
+                    }
+                    */
                 }
 
                 // Taskliste zurückschreiben
